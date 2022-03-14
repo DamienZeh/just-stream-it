@@ -2,7 +2,45 @@ let urlBestMovies= `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`;
 let urlBestAnimationMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation`;
 let urlBestActionMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action`;
 let urlBestAdventureMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Adventure`;
+let playButton = document.getElementById("playButton");
 
+playButton.onclick= play;
+
+function play(){
+  alert("Pas de vidéo en stock.")
+}
+
+var getBestMovie = async function(url) {
+  try {
+    var response = await fetch(url);
+    if (response.ok) {
+      var data = await response.json();
+      var movie =data.results;
+      var responseSecond = await fetch(movie[0].url);      
+      if (responseSecond.ok) {          
+          var dataDetail = await responseSecond.json();
+          console.log(dataDetail.image_url)          
+          let img = document.querySelector(`#imgBest`)  ;        
+          img.src = dataDetail.image_url; 
+          let titleMovie = document.querySelector('#bestTitle') ;
+          titleMovie.innerHTML ="Titre : " + dataDetail.title;
+          let synopsis = document.querySelector("#bestDescription");
+          synopsis.innerHTML = "Synopsis : " + dataDetail.description;
+          return dataDetail;
+      }else {
+        console.error('Retour du serveur : ', response.status);
+      }
+    }
+    else {
+      console.error('Retour du serveur : ', response.status);
+    }
+  }        
+  catch (e) {
+    console.log(e);
+  }    
+} 
+
+getBestMovie(urlBestMovies)
 
 var getMovies = async function(url) {    
   try {
@@ -16,7 +54,7 @@ var getMovies = async function(url) {
               let dataNext =data.results;
               allMovies =movies.concat(dataNext);
               console.log(allMovies);
-            return allMovies;
+              return allMovies;
           }
           else {
             console.error('Retour du serveur : ', response.status);
@@ -55,13 +93,9 @@ getImageMovie(urlBestAdventureMovies,'#carousel4', 0, 1);
 var modalBox = async function (url,nameCarousel, nameButton, numberMovie) { 
   var moviesData = await getMovies(url);
   let carousel = document.querySelector(nameCarousel);
-  // Get the modal
   var modal = document.getElementById("myModal");
-  // Get the button that opens the modal
   var btn = carousel.querySelector(nameButton);
-  // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
-  // When the user clicks on the button, open the modal
   btn.onclick = function() {
     modal.style.display = "block";
     getDataMovie(moviesData, numberMovie);
@@ -81,6 +115,7 @@ var modalBox = async function (url,nameCarousel, nameButton, numberMovie) {
   }  
 }
 
+modalBox(urlBestMovies, '#bestFilm', '#infoButton',0 );
 let allMoviesCategory = async function(url, nomCarousel){  
   modalBox(url,nomCarousel, '.myBtn1', 0)
   modalBox(url,nomCarousel, '.myBtn2', 1)
@@ -118,13 +153,13 @@ let getDataMovie = async function(dataMovie, numberMovie){
       let actors = document.querySelector("#actors");
       actors.innerHTML = "Acteurs :" + data.actors;
       let time = document.querySelector("#time");
-      time.innerHTML = "Durée :" + data.time;
+      time.innerHTML = "Durée : " + data.time;
       let country = document.querySelector("#country");
-      country.innerHTML = "Pays d'origine :" + data.country;
+      country.innerHTML = "Pays d'origine : " + data.country;
       let result = document.querySelector("#result");
-      result.innerHTML = "résultat box-office :" + data.result;
+      result.innerHTML = "résultat box-office : " + data.result;
       let synopsis = document.querySelector("#synopsis");
-      synopsis.innerHTML = "Synopsis :" + data.description;
+      synopsis.innerHTML = "Synopsis : " + data.description;
   }
 }
 

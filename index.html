@@ -10,9 +10,28 @@
         <script type="text/javascript" src="JS/main.js" async></script>             
     </head>
 
-    <body>
+    <body>         
+          <header>
+            <!-- MENU-->
+            <nav>
+                <ul class="liste-objets">
+                    <li id="logo"><img src="PICTURES/flavicon.png" alt=""></li>
+                    <li id="nom"><i><strong>JustStreamIt</strong></i></li>                    
+                    <li class="objets"><a href="index.html">Accueil</a></li>
+                    <li class="objets">Catégories<span>&#9660;</span>
+                        <ul class="sous-liste">
+                            <li class="objets-sous-liste"><a href="">Meilleurs films</li></a>
+                            <li class="objets-sous-liste"><a href="">Action</li></a>
+                            <li class="objets-sous-liste"><a href="">Aventure</li></a>
+                            <li class="objets-sous-liste"><a href="">Animation</li></a>                      
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>         
+        </header>  
 
-        <h1 class="title">JustStreamIt</h1>
+        
         <!-- The Modal -->
         <div id="myModal" class="modal">
 
@@ -21,6 +40,7 @@
             <span class="close">&times;</span>
             <img src="" class="imgBox">
             <p id="titleMovie"></p>
+            <br>
             <p id="genre"></p>
             <p id="datePublished"></p>
             <p id="rated"></p>
@@ -33,11 +53,28 @@
             <p id="synopsis"></p>
           </div>
         </div>
+
+        <!-- Best film -->
+        <div id="bestFilm">
+          <div class="item__image">
+            <img src="" id="imgBest">
+          </div>  
+          <p id="bestTitle"></p>   
+          <button id="playButton"type="button">
+            Play
+          </button>
+          <button id="infoButton"type="button">
+            info
+          </button>  
+          <p id="bestDescription"></p>    
+
+        </div>
+        
         
         <!-- carousels -->    
         <div class="container">         
           
-          <h2 class="title">Les meilleurs films</h2>
+          <h2 class="title">Les meilleurs films :</h2>
           <div id="carousel1">            
             <div class="item">
               <div class="item__image">
@@ -82,7 +119,7 @@
             </div>      
           </div>
           
-          <h2 class="title">Les meilleurs films d'animation</h2>
+          <h2 class="title">Les meilleurs films d'animation :</h2>
           <div id="carousel2">            
             <div class="item">
               <div class="item__image">
@@ -127,7 +164,7 @@
             </div>      
           </div>
 
-          <h2 class="title">Les meilleurs films d'action</h2>
+          <h2 class="title">Les meilleurs films d'action :</h2>
           <div id="carousel3">            
             <div class="item">
               <div class="item__image">
@@ -172,7 +209,7 @@
             </div>      
           </div>
 
-          <h2 class="title">Les meilleurs films d'aventure</h2>
+          <h2 class="title">Les meilleurs films d'aventure :</h2>
           <div id="carousel4">            
             <div class="item">
               <div class="item__image">
