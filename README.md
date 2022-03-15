@@ -22,7 +22,8 @@ qui explique la procédure à suivre pour que ce soit fonctionnel. <br/>
 
 
 C'est une interface graphique, un peu du genre Netflix, avec plusieurs catégories de films,<br>
-un film mis en avant (le mieux noté de tous), et une description s'affichant pour chaque film.
+un film mis en avant (le mieux noté de tous), et une description s'affichant pour chaque film.<br>
+Le site est responsive et fonctionne avec Chrome, Opera, Firefox et Edge.
 <br><br>
 ## Auteur
 
