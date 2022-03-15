@@ -3,6 +3,9 @@
   color: #FFF;
   text-decoration: none;
 }
+#carousel1 {
+  order:1;
+}
 body, html {
   margin: 0;
   min-height: 100%;
@@ -19,23 +22,23 @@ body, html {
 
 .title {
   font-size: 25px;  
-  margin-bottom: 25px;
+  margin-bottom: 0px;
 }
 
 .item {
   margin: 40px 10px;
   padding: 5px;
-  background-color: #fff;
-  box-shadow: 0 15px 35px #1f1f1f1a,0 5px 15px #0000001a; 
+  background-color: rgba(255, 255, 255, 0);  /*invisible*/
   border-radius: 3% 3%;  
 }
 
 .item img {
   display: block;
-  width: 100%;
+  width: 60%;
   height: auto; 
   border-radius: 3% 3%;
   cursor: pointer;
+  box-shadow: 0 15px 35px #1f1f1f1a,0 5px 15px #0000001a; 
 } 
 
 
@@ -54,9 +57,7 @@ body, html {
 }
 
 
-/**
-CAROUSEL
- */
+/* CAROUSEL */
 .carousel {
   position: relative;
 }
@@ -85,7 +86,7 @@ CAROUSEL
   border-radius: 50%;
   top: 50%;
   margin-top: -20px;
-  right: -20px;
+  right: 10px;
   box-shadow: 0 15px 35px #2020201a,0 5px 15px #0000001a;
   cursor: pointer;
   transition: transform 0.3s, opacity 0.3s;
@@ -109,13 +110,13 @@ CAROUSEL
 /* Modal */
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100%;
+  height: 100%; 
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
@@ -124,19 +125,19 @@ CAROUSEL
 /* Modal Content/Box */
 .modal-content {
   background-color: #968e8e;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto; 
   padding: 10px;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 50%; 
   height: 65%;
-  border-radius: 1% 1%;
+  border-radius: 1% 1% 1% 1%;
   overflow-x: hidden;
 }
 
 .modal img {
   padding: 10px;
   float: right;
-  height: 70%;
+  height: 60%;
 }
 .modal p {
   max-width: 500px;
@@ -147,7 +148,7 @@ CAROUSEL
 
 /* The Close Button */
 .close {
-  color: rgb(141, 122, 122);
+  color: rgb(105, 91, 91);
   float: right;
   font-size: 28px;
   padding-right: 10px;
@@ -168,8 +169,8 @@ CAROUSEL
   border-radius: 11px 11px;
   max-width: 800px;
   overflow-x: hidden;
-  width: 50%; /* Full width */
-  height: 100%; /* Full height */ 
+  width: 50%; 
+  height: 100%; 
   background: linear-gradient(90deg, rgb(27, 27, 27), #383838,#383838,#383838);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;  
 }
@@ -180,9 +181,6 @@ CAROUSEL
 }
 
 #bestFilm img {
-  /*
-  padding: 10px;
-  display: block;*/
   float: right;
   width: 30%;
   height: auto; 
@@ -223,9 +221,7 @@ CAROUSEL
 }
 
 
-
-
-/*DEBUT MENU */
+/* MENU */
 nav {
    padding-left: 0px;
    z-index: 2;
@@ -270,12 +266,12 @@ nav {
 .sous-liste {
    position: relative;
    top: -2px;
-   display: none;
+   display: none;   
 }
 .objets-sous-liste {
    list-style-type: none;
    text-align: center;
-   padding: 0 13px;
+   padding: 0 13px;   
    background: rgb(43, 43, 43);
    border-bottom: 0.5px solid rgba(167, 167, 167);
 }
@@ -283,45 +279,143 @@ nav {
 .objets-sous-liste:hover {
    background: rgb(156,156,156);
 }
+.objets-sous-liste a {
+  display : block;
+
+}
 
 .objets:hover > ul {
-   display: block;
+   display: block; 
 }
-/*FIN MENU */
+/* FIN MENU */
 
 
-
-
-
-
-
-   
-
-
-
-/*
-@media  (max-width: 1500px) {
-   
-   .liste-items .nom {padding-right: 7%;font-size: 10px;}
-   .liste-items { padding-right: 0px; }         
-   }
+/* RESPONSIVE */
 @media  (max-width: 1100px) {
-   .liste-items { font-size: 10px; }  
+  /* carousel */
+  .item img {
+    width: 100%;
+  } 
+  /* best movie */
+  #bestFilm {
+    width: 90%;
+  } 
+  /* Modal Content/Box */
+  .modal-content {
+    width: 75%;    
+    height: 60%;   
+  }
+  .modal img {
+    height: 50%;
+  }
+}
 
+@media  (max-width: 750px) {  
+  /* best movie */
+  #bestFilm img {
+    width: 40%;
+  } 
+  /* Modal Content/Box */
+  .modal-content {
+    width: 85%;    
+    height: 70%;    
+  }
+  .modal img {
+    height: 60%; 
+  }
 }
-@media  (max-width: 883px) {
-   .slideshow{
-       position: fixed;
-       min-height: 100%;
-       min-width: 100%;    
-       top: 0px;      
-       }
-   #contact {
-       transform: scale(0.5);
-       position: fixed;
-       margin-top: 50%;
-       right: 5%;
-   
-   }      
+
+@media  (max-width: 620px) {
+  /* carousel */
+  .title{
+    font-size: 2.2vh;
+  }
+  .item img {
+    width: 60%;
+    margin-left: 15%;
+  }
+  /*menu*/
+  nav {
+    height: 60px;
+  }
+  ul {    
+    padding-left: 5px;  
+  }
+  .liste-objets #nom {   
+    padding-right: 40px;    
+  }
+  .liste-objets img {
+    height: 40px;
+    padding-right: 10px;
+    margin-top: 10px;    
+  } 
+  .objets {
+    margin-right: 15px;  
+  }
+
+  /* best movie */
+  #bestFilm {
+    margin-left: 10px; 
+    width: 90%; /* Full width */   
+    background: linear-gradient(90deg, rgb(27, 27, 27),#383838);  
+  } 
+  #bestFilm img {
+    float: unset;   
+  }
+  #playButton, #infoButton {
+    padding: 4px 10px 4px 10px; 
+    }
+  /* Modal Content/Box */
+  .modal-content {
+    width: 96%;    
+    height: 70%;    
+  }
+  .modal img {
+    padding: 10px;
+    float: unset;  
+    height: 45%; 
+  }
+  /* The Close Button */
+  .close {
+    padding-right: 1px; 
+  }
 }
-*/
+
+@media  (max-width: 480px) {
+  /* carousel */
+  .container{
+    padding-left: 25px;
+  }
+  .item img {
+    width: 70%;
+    margin-left: 9%;
+  }
+  /*menu*/
+  nav {
+    height: 45px;
+  }
+  .liste-objets img {
+    height: 30px;
+    padding-right: 20px;     
+    margin-top: 0px;   
+  } 
+  .objets {
+    margin-top: 0;
+  }
+  .liste-objets #nom {   
+    padding-right: 0px;    
+    font-size: 0px;    
+  }
+    /* best movie */
+  #bestFilm img {   
+    width: 55%;   /  
+  }
+    /* Modal */
+  .modal img {
+    height: 35%; 
+  }
+  .modal-content {
+    height: 80%; 
+  }
+}
+
