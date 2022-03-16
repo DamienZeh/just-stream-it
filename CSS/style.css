@@ -10,18 +10,18 @@ body, html {
   margin: 0;
   min-height: 100%;
   overflow-x: hidden;
-  font-family: sans-serif;
- 
+  font-family: sans-serif; 
   background:  #383838;
   line-height: 1.4;
 }
 
+/* CAROUSEL */
 .container {
-  padding-left: 50px;
+  padding-left: 70px;
 }
 
 .title {
-  font-size: 25px;  
+  font-size: 20px;  
   margin-bottom: 0px;
 }
 
@@ -34,13 +34,12 @@ body, html {
 
 .item img {
   display: block;
-  width: 60%;
+  width: 55%; 
   height: auto; 
   border-radius: 3% 3%;
   cursor: pointer;
-  box-shadow: 0 15px 35px #1f1f1f1a,0 5px 15px #0000001a; 
+  box-shadow: 0 15px 35px #18181870,0 5px 15px #0000005d; 
 } 
-
 
 .item__body {
   padding: 25px;
@@ -56,8 +55,6 @@ body, html {
   color: #585858;
 }
 
-
-/* CAROUSEL */
 .carousel {
   position: relative;
 }
@@ -86,7 +83,7 @@ body, html {
   border-radius: 50%;
   top: 50%;
   margin-top: -20px;
-  right: 10px;
+  right: 20px;
   box-shadow: 0 15px 35px #2020201a,0 5px 15px #0000001a;
   cursor: pointer;
   transition: transform 0.3s, opacity 0.3s;
@@ -137,7 +134,7 @@ body, html {
 .modal img {
   padding: 10px;
   float: right;
-  height: 60%;
+  height: 50%;
 }
 .modal p {
   max-width: 500px;
@@ -184,6 +181,9 @@ body, html {
   float: right;
   width: 30%;
   height: auto; 
+}
+#bestTitle {
+  font-size: larger;
 }
 
 #playButton, #infoButton {
@@ -279,10 +279,6 @@ nav {
 .objets-sous-liste:hover {
    background: rgb(156,156,156);
 }
-.objets-sous-liste a {
-  display : block;
-
-}
 
 .objets:hover > ul {
    display: block; 
@@ -321,17 +317,17 @@ nav {
     height: 70%;    
   }
   .modal img {
-    height: 60%; 
+    height: 50%; 
   }
 }
 
 @media  (max-width: 620px) {
   /* carousel */
   .title{
-    font-size: 2.2vh;
+    font-size: 18px;
   }
   .item img {
-    width: 60%;
+    width: 50%;
     margin-left: 15%;
   }
   /*menu*/
@@ -408,7 +404,7 @@ nav {
   }
     /* best movie */
   #bestFilm img {   
-    width: 55%;   /  
+    width: 55%;   
   }
     /* Modal */
   .modal img {
