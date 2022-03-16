@@ -18,17 +18,18 @@
                     <li id="logo"><img src="PICTURES/flavicon.png" alt=""></li>
                     <li id="nom"><i><strong>JustStreamIt</strong></i></li>                    
                     <li class="objets"><a href="index.html">Accueil</a></li>
-                    <li class="objets">Catégories<span>&#9660;</span>
+                    <li class="objets" id="categoriesButton">Catégories<span>&#9660;</span>
                         <ul class="sous-liste">
-                            <li class="objets-sous-liste"><a href="meilleurs-films.html">Meilleurs-films</li></a>
-                            <li class="objets-sous-liste"><a href="action.html">Action</li></a>
-                            <li class="objets-sous-liste"><a href="aventure.html">Aventure</li></a>
-                            <li class="objets-sous-liste"><a href="animation.html">Animation</li></a>                      
+                            <li class="objets-sous-liste" id="bestMoviesSelect">Meilleurs-films</li>
+                            <li class="objets-sous-liste" id="actionSelect">Action</li>
+                            <li class="objets-sous-liste" id="adventureSelect">Aventure</li>
+                            <li class="objets-sous-liste" id="animationSelect">Animation</li>                      
                             </li>
                         </ul>
                     </li>
                 </ul>
-            </nav>      
+            </nav> 
+          </header>     
         
         <!-- The Modal -->
         <div id="myModal" class="modal">
@@ -69,185 +70,192 @@
         
         <!-- carousels -->    
         <div class="container">        
-          
-          <h2 class="title">Les meilleurs films :</h2>
-          <div id="carousel1">            
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img1 myBtn1">
-              </div>              
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img2 myBtn2">
+          <div id="bestMovies">
+            <h2 class="title">Les meilleurs films :</h2>
+            <div id="carousel1">            
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img1 myBtn1">
+                </div>              
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img3 myBtn3">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img2 myBtn2">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img4 myBtn4">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img3 myBtn3">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img5 myBtn5">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img4 myBtn4">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img6 myBtn6">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img5 myBtn5">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img7 myBtn7">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img6 myBtn6">
+                </div>
+              </div>
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img7 myBtn7">
+                </div>      
               </div>      
-            </div>      
+            </div>
           </div>
           
-          <h2 class="title">Les meilleurs films d'animation :</h2>
-          <div id="carousel2">            
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img1 myBtn1">
-              </div>              
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img2 myBtn2">
+          <div id="animation">
+            <h2 class="title action">Les meilleurs films d'animation :</h2>
+            <div id="carousel2">            
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img1 myBtn1">
+                </div>              
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img3 myBtn3">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img2 myBtn2">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img4 myBtn4">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img3 myBtn3">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img5 myBtn5">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img4 myBtn4">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img6 myBtn6">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img5 myBtn5">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img7 myBtn7">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img6 myBtn6">
+                </div>
+              </div>
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img7 myBtn7">
+                </div>      
               </div>      
-            </div>      
+            </div>
           </div>
 
-          <h2 class="title">Les meilleurs films d'action :</h2>
-          <div id="carousel3">            
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img1 myBtn1">
-              </div>              
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img2 myBtn2">
+          <div id="action">
+            <h2 class="title">Les meilleurs films d'action :</h2>
+            <div id="carousel3">            
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img1 myBtn1">
+                </div>              
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img3 myBtn3">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img2 myBtn2">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img4 myBtn4">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img3 myBtn3">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img5 myBtn5">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img4 myBtn4">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img6 myBtn6">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img5 myBtn5">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img7 myBtn7">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img6 myBtn6">
+                </div>
+              </div>
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img7 myBtn7">
+                </div>      
               </div>      
-            </div>      
+            </div>
           </div>
 
-          <h2 class="title">Les meilleurs films d'aventure :</h2>
-          <div id="carousel4">            
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img1 myBtn1">
-              </div>              
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img2 myBtn2">
+          <div id="adventure">
+            <h2 class="title">Les meilleurs films d'aventure :</h2>
+            <div id="carousel4">            
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img1 myBtn1">
+                </div>              
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img3 myBtn3">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img2 myBtn2">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img4 myBtn4">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img3 myBtn3">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img5 myBtn5">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img4 myBtn4">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img6 myBtn6">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img5 myBtn5">
+                </div>
               </div>
-            </div>
-      
-            <div class="item">
-              <div class="item__image">
-                <img src="" class="img7 myBtn7">
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img6 myBtn6">
+                </div>
+              </div>
+        
+              <div class="item">
+                <div class="item__image">
+                  <img src="" class="img7 myBtn7">
+                </div>      
               </div>      
-            </div>      
+            </div>
           </div>
           
         </div>               
