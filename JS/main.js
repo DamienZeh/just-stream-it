@@ -209,30 +209,17 @@ let getDataMovie = async function(dataMovie, numberMovie){
 //carousel
 //
 class Carousel {
-  /**
-   * This callback type is called `requestCallback` and is displayed as a global symbol.
-   *
-   * @callback moveCallback
-   * @param {number} index
-   */
-
-  /**
-   * @param {HTMLElement} element
-   * @param {Object} options 
-   * @param {Object} [options.slidesToScroll=1] elements number to do scroll
-   * @param {Object} [options.slidesVisible=1] elements number visible in a slide
-   * @param {boolean} [options.loop=false] boucle or not in the end of carousel
-   * @param {boolean} [options.infinite=false]
-   * @param {boolean} [options.navigation=true]
-   */
   constructor (element, options = {}) {
     this.element = element
     this.options = Object.assign({}, {
+      // elements number to do scroll
       slidesToScroll: 1,
-      slidesVisible: 1,
+      // elements number visible in a slide 
+      slidesVisible: 1, 
+      // boucle or not in the end of carousel
       loop: false,  
       navigation: true,
-      infinite: false
+      infinite: false //infinite or not
     }, options)
     if (this.options.loop && this.options.infinite) {
       throw new Error('Un carousel ne peut être à la fois en boucle et en infinie')
@@ -335,11 +322,8 @@ class Carousel {
     this.gotoItem(this.currentItem - this.slidesToScroll)
   }
 
-  /**
-   * Move carousel to target element
-   * @param {number} index
-   * @param {boolean} [animation = true]
-   */
+  
+   //Move carousel to target element
   gotoItem (index, animation = true) {
     if (index < 0) {
       if (this.options.loop) {
@@ -367,9 +351,8 @@ class Carousel {
     this.moveCallbacks.forEach(cb => cb(index))
   }
 
-  /**
-   * Move the container for give impression of infinite slide
-   */
+  
+  //Move the container for give impression of infinite slide
   resetInfinite () {
     if (this.currentItem <= this.options.slidesToScroll) {
       this.gotoItem(this.currentItem + (this.items.length - 2 * this.offset), false)
@@ -378,17 +361,14 @@ class Carousel {
     }
   }
 
-  /**
-   * add a listener for listen le move of carousel
-   * @param {moveCallback} cb
-   */
+
+  //add a listener for listen le move of carousel
   onMove (cb) {
     this.moveCallbacks.push(cb)
   }
 
-  /**
-   * Listener for resize window
-   */
+
+  //Listener for resize window
   onWindowResize () {
     let mobile = window.innerWidth < 620
     if (mobile !== this.isMobile) {
@@ -398,27 +378,22 @@ class Carousel {
     }
   }
 
-  /**
-   * Helper for create div with a class
-   * @param {string} className
-   * @returns {HTMLElement}
-   */
+
+  //Helper for create div with a class
   createDivWithClass (className) {
     let div = document.createElement('div')
     div.setAttribute('class', className)
     return div
   }
 
-  /**
-   * @returns {number}
-   */
+
+  //returns number
   get slidesToScroll () {
     return this.isMobile ? 1 : this.options.slidesToScroll
   }
 
-  /**
-   * @returns {number}
-   */
+
+  //returns number
   get slidesVisible () {
     return this.isMobile ? 1 : this.options.slidesVisible
   }
@@ -455,3 +430,4 @@ if (document.readyState !== 'loading') {
   onReady()
 }
 document.addEventListener('DOMContentLoaded', onReady)
+//it launches when html is loaded, witheout wait css or images loaded.
