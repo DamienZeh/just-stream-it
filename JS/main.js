@@ -1,24 +1,55 @@
+// variables for urls categories
 let urlBestMovies= `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`;
 let urlBestAnimationMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation`;
 let urlBestActionMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action`;
 let urlBestAdventureMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Adventure`;
+
+
+// variables for choice in categories's menu
+let bestMoviesSelect = document.querySelector('#bestMoviesSelect');
+let actionSelect = document.querySelector('#actionSelect');
+let adventureSelect = document.querySelector('#adventureSelect');
+let animationSelect = document.querySelector('#animationSelect');
+let bestMovieWindow = document.querySelector('#bestFilm');
+let carouselBest = document.querySelector("#bestMovies");
+let carouselAction = document.querySelector("#action");
+let carouselAnime = document.querySelector("#animation");
+let carouselAdventure = document.querySelector("#adventure");
+let categoriesButton = document.querySelector("#categoriesButton");
+
+//hide all the categories that we did not choose, + modal window & button "categories"
+categoryChoice = function (category, supONe, supTwo, supThree){
+  category.onclick = function() {
+    bestMovieWindow.style.display = "none";//window best movie
+    supONe.style.display = "none";
+    supTwo.style.display = "none";
+    supThree.style.display = "none";
+    categoriesButton.style.display = "none";//categories button menu
+  }
+}
+
+categoryChoice(bestMoviesSelect, carouselAction, carouselAdventure, carouselAnime,);
+categoryChoice(actionSelect, carouselBest, carouselAdventure, carouselAnime,);
+categoryChoice(adventureSelect, carouselAction, carouselBest, carouselAnime,);
+categoryChoice(animationSelect, carouselAction, carouselAdventure, carouselBest,);
+
+// info: no film
 let playButton = document.getElementById("playButton");
-
 playButton.onclick= play;
-
 function play(){
   alert("Pas de vidéo en stock.")
 }
 
-var getBestMovie = async function(url) {
+// Get data for the best movie
+let getBestMovie = async function(url) {
   try {
-    var response = await fetch(url);
+    let response = await fetch(url);
     if (response.ok) {
-      var data = await response.json();
-      var movie =data.results;
-      var responseSecond = await fetch(movie[0].url);      
+      let data = await response.json();
+      let movie =data.results;
+      let responseSecond = await fetch(movie[0].url);      
       if (responseSecond.ok) {          
-          var dataDetail = await responseSecond.json();
+          let dataDetail = await responseSecond.json();
           console.log(dataDetail.image_url)          
           let img = document.querySelector(`#imgBest`)  ;        
           img.src = dataDetail.image_url; 
@@ -42,11 +73,12 @@ var getBestMovie = async function(url) {
 
 getBestMovie(urlBestMovies)
 
-var getMovies = async function(url) {    
+//Get data's movies for the first two pages
+let getMovies = async function(url) {    
   try {
       var response = await fetch(url);
       if (response.ok) {
-          var data = await response.json();
+          let data = await response.json();
           let movies =data.results;
           var response = await fetch(data.next);
           if (response.ok) {
@@ -69,9 +101,9 @@ var getMovies = async function(url) {
   }    
 } 
 
-
-var getImageMovie = async function (url, nameCarousel, numberMovie, numberImage) { 
-   var moviesData = await getMovies(url); 
+//get image_url from data movie
+let getImageMovie = async function (url, nameCarousel, numberMovie, numberImage) { 
+   let moviesData = await getMovies(url); 
    let indexMovie = 1;    
    while (indexMovie !=8){  
     let carousel = document.querySelector(nameCarousel);
@@ -87,15 +119,15 @@ getImageMovie(urlBestMovies,'#carousel1', 0, 1);
 getImageMovie(urlBestAnimationMovies,'#carousel2', 0, 1);
 getImageMovie(urlBestActionMovies,'#carousel3', 0, 1);
 getImageMovie(urlBestAdventureMovies,'#carousel4', 0, 1);
+          
 
-
-
-var modalBox = async function (url,nameCarousel, nameButton, numberMovie) { 
-  var moviesData = await getMovies(url);
+//modal window for all movie data
+let modalBox = async function (url,nameCarousel, nameButton, numberMovie) { 
+  let moviesData = await getMovies(url);
   let carousel = document.querySelector(nameCarousel);
-  var modal = document.getElementById("myModal");
-  var btn = carousel.querySelector(nameButton);
-  var span = document.getElementsByClassName("close")[0];
+  let modal = document.getElementById("myModal");
+  let btn = carousel.querySelector(nameButton);
+  let span = document.getElementsByClassName("close")[0];
   btn.onclick = function() {
     modal.style.display = "block";
     getDataMovie(moviesData, numberMovie);
@@ -115,6 +147,7 @@ var modalBox = async function (url,nameCarousel, nameButton, numberMovie) {
   }  
 }
 
+//launch modal window for all movies in all categories
 modalBox(urlBestMovies, '#bestFilm', '#infoButton',0 );
 let allMoviesCategory = async function(url, nomCarousel){  
   modalBox(url,nomCarousel, '.myBtn1', 0)
@@ -131,40 +164,50 @@ allMoviesCategory(urlBestAnimationMovies, "#carousel2");
 allMoviesCategory(urlBestActionMovies, "#carousel3");
 allMoviesCategory(urlBestAdventureMovies, "#carousel4");
 
+
+//get all infos in a film
 let getDataMovie = async function(dataMovie, numberMovie){
-  var response = await fetch(dataMovie[numberMovie].url);
-  // get in url details.
-  if (response.ok) {
-      var data = await response.json();
-      let img = document.querySelector(`.imgBox`)  ;        
-      img.src = data.image_url; 
-      let titleMovie = document.querySelector('#titleMovie') ;
-      titleMovie.innerHTML ="Titre : " + data.title;
-      let genre = document.querySelector("#genre");
-      genre.innerHTML="Genre : " + data.genres;
-      let datePublished = document.querySelector("#datePublished");
-      datePublished.innerHTML = "Date de sortie :" + data.datePublished;
-      let rated = document.querySelector("#rated");
-      rated.innerHTML = "Classification :" + data.rated;
-      let scoreImdb = document.querySelector("#scoreImdb");
-      scoreImdb.innerHTML = "Score IMDB :" + data.scoreImdb;
-      let director = document.querySelector("#director");
-      director.innerHTML = "Réalisateur :" + data.director;
-      let actors = document.querySelector("#actors");
-      actors.innerHTML = "Acteurs :" + data.actors;
-      let time = document.querySelector("#time");
-      time.innerHTML = "Durée : " + data.time;
-      let country = document.querySelector("#country");
-      country.innerHTML = "Pays d'origine : " + data.country;
-      let result = document.querySelector("#result");
-      result.innerHTML = "résultat box-office : " + data.result;
-      let synopsis = document.querySelector("#synopsis");
-      synopsis.innerHTML = "Synopsis : " + data.description;
-  }
-}
+  try {
+    let response = await fetch(dataMovie[numberMovie].url);
+    // get in url details.
+    if (response.ok) {
+        let data = await response.json();
+        let img = document.querySelector(`.imgBox`)  ;        
+        img.src = data.image_url; 
+        let titleMovie = document.querySelector('#titleMovie') ;
+        titleMovie.innerHTML ="Titre : " + data.title;
+        let genre = document.querySelector("#genre");
+        genre.innerHTML="Genre : " + data.genres;
+        let datePublished = document.querySelector("#datePublished");
+        datePublished.innerHTML = "Date de sortie :" + data.datePublished;
+        let rated = document.querySelector("#rated");
+        rated.innerHTML = "Classification :" + data.rated;
+        let scoreImdb = document.querySelector("#scoreImdb");
+        scoreImdb.innerHTML = "Score IMDB :" + data.scoreImdb;
+        let director = document.querySelector("#director");
+        director.innerHTML = "Réalisateur :" + data.director;
+        let actors = document.querySelector("#actors");
+        actors.innerHTML = "Acteurs :" + data.actors;
+        let time = document.querySelector("#time");
+        time.innerHTML = "Durée : " + data.time;
+        let country = document.querySelector("#country");
+        country.innerHTML = "Pays d'origine : " + data.country;
+        let result = document.querySelector("#result");
+        result.innerHTML = "résultat box-office : " + data.result;
+        let synopsis = document.querySelector("#synopsis");
+        synopsis.innerHTML = "Synopsis : " + data.description;
+    }else {
+      console.error('Retour du serveur : ', response.status);
+    }
+  }catch (e) {
+    console.log(e);
+  }    
+} 
 
 
+//
 //carousel
+//
 class Carousel {
   /**
    * This callback type is called `requestCallback` and is displayed as a global symbol.
@@ -175,12 +218,11 @@ class Carousel {
 
   /**
    * @param {HTMLElement} element
-   * @param {Object} options
-   * @param {Object} [options.slidesToScroll=1] Nombre d'éléments à faire défiler
-   * @param {Object} [options.slidesVisible=1] Nombre d'éléments visible dans un slide
-   * @param {boolean} [options.loop=false] Doit-t-on boucler en fin de carousel
+   * @param {Object} options 
+   * @param {Object} [options.slidesToScroll=1] elements number to do scroll
+   * @param {Object} [options.slidesVisible=1] elements number visible in a slide
+   * @param {boolean} [options.loop=false] boucle or not in the end of carousel
    * @param {boolean} [options.infinite=false]
-   * @param {boolean} [options.pagination=false]
    * @param {boolean} [options.navigation=true]
    */
   constructor (element, options = {}) {
@@ -188,8 +230,7 @@ class Carousel {
     this.options = Object.assign({}, {
       slidesToScroll: 1,
       slidesVisible: 1,
-      loop: false,
-      pagination: false,
+      loop: false,  
       navigation: true,
       infinite: false
     }, options)
@@ -202,7 +243,7 @@ class Carousel {
     this.moveCallbacks = []
     this.offset = 0
 
-    // Modification du DOM
+    // DOM's Modification
     this.root = this.createDivWithClass('carousel')
     this.container = this.createDivWithClass('carousel__container')
     this.root.setAttribute('tabindex', '0')
@@ -230,9 +271,6 @@ class Carousel {
     if (this.options.navigation) {
       this.createNavigation()
     }
-    if (this.options.pagination) {
-      this.createPagination()
-    }
 
     // Evenements
     this.moveCallbacks.forEach(cb => cb(this.currentItem))
@@ -251,7 +289,7 @@ class Carousel {
   }
 
   /**
-   * Applique les bonnes dimensions aux éléments du carousel
+   * give the good dimensions to carousel's elements
    */
   setStyle () {
     let ratio = this.items.length / this.slidesVisible
@@ -260,7 +298,7 @@ class Carousel {
   }
 
   /**
-   * Crée les flêches de navigation dans le DOM
+   * Create arrows for navigation in the DOM
    */
   createNavigation () {
     let nextButton = this.createDivWithClass('carousel__next')
@@ -298,7 +336,7 @@ class Carousel {
   }
 
   /**
-   * Déplace le carousel vers l'élément ciblé
+   * Move carousel to target element
    * @param {number} index
    * @param {boolean} [animation = true]
    */
@@ -330,7 +368,7 @@ class Carousel {
   }
 
   /**
-   * Déplace le container pour donner l'impression d'un slide infini
+   * Move the container for give impression of infinite slide
    */
   resetInfinite () {
     if (this.currentItem <= this.options.slidesToScroll) {
@@ -341,7 +379,7 @@ class Carousel {
   }
 
   /**
-   * Rajoute un écouteur qui écoute le déplacement du carousel
+   * add a listener for listen le move of carousel
    * @param {moveCallback} cb
    */
   onMove (cb) {
@@ -349,7 +387,7 @@ class Carousel {
   }
 
   /**
-   * Ecouteur pour le redimensionnement de la fenêtre
+   * Listener for resize window
    */
   onWindowResize () {
     let mobile = window.innerWidth < 620
@@ -361,7 +399,7 @@ class Carousel {
   }
 
   /**
-   * Helper pour créer une div avec une classe
+   * Helper for create div with a class
    * @param {string} className
    * @returns {HTMLElement}
    */
