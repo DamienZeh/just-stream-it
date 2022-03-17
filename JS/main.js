@@ -1,5 +1,4 @@
-// variables for urls categories
-let urlBestMovies= `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`;
+let urlBestMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`;
 let urlBestAnimationMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation`;
 let urlBestActionMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action`;
 let urlBestAdventureMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Adventure`;
@@ -18,7 +17,7 @@ let carouselAdventure = document.querySelector("#adventure");
 let categoriesButton = document.querySelector("#categoriesButton");
 
 //hide all the categories that we did not choose, + modal window & button "categories"
-categoryChoice = function (category, supONe, supTwo, supThree){
+let categoryChoice = function (category, supONe, supTwo, supThree){
   category.onclick = function() {
     bestMovieWindow.style.display = "none";//window best movie
     supONe.style.display = "none";
@@ -80,11 +79,11 @@ let getMovies = async function(url) {
       if (response.ok) {
           let data = await response.json();
           let movies =data.results;
-          var response = await fetch(data.next);
-          if (response.ok) {
-              let data = await response.json();
+          var response2 = await fetch(data.next);
+          if (response2.ok) {
+              let data = await response2.json();
               let dataNext =data.results;
-              allMovies =movies.concat(dataNext);
+              let allMovies =movies.concat(dataNext);
               console.log(allMovies);
               return allMovies;
           }
@@ -131,9 +130,6 @@ let modalBox = async function (url,nameCarousel, nameButton, numberMovie) {
   btn.onclick = function() {
     modal.style.display = "block";
     getDataMovie(moviesData, numberMovie);
-  }
-  function x() {
-    modal.style.display = "block";
   }
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
