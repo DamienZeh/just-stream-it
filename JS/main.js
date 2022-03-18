@@ -180,21 +180,21 @@ let getDataMovie = async function(dataMovie, numberMovie){
         let genre = document.querySelector("#genre");
         genre.innerHTML="Genre : " + data.genres;
         let datePublished = document.querySelector("#datePublished");
-        datePublished.innerHTML = "Date de sortie :" + data.datePublished;
+        datePublished.innerHTML = "Date de sortie :" + data.date_published;
         let rated = document.querySelector("#rated");
         rated.innerHTML = "Classification :" + data.rated;
         let scoreImdb = document.querySelector("#scoreImdb");
-        scoreImdb.innerHTML = "Score IMDB :" + data.scoreImdb;
+        scoreImdb.innerHTML = "Score IMDB :" + data.imdb_score;
         let director = document.querySelector("#director");
-        director.innerHTML = "Réalisateur :" + data.director;
+        director.innerHTML = "Réalisateur :" + data.directors;
         let actors = document.querySelector("#actors");
         actors.innerHTML = "Acteurs :" + data.actors;
         let time = document.querySelector("#time");
-        time.innerHTML = "Durée : " + data.time;
+        time.innerHTML = "Durée : " + data.duration;
         let country = document.querySelector("#country");
-        country.innerHTML = "Pays d'origine : " + data.country;
+        country.innerHTML = "Pays d'origine : " + data.countries;
         let result = document.querySelector("#result");
-        result.innerHTML = "résultat box-office : " + data.result;
+        result.innerHTML = "résultat box-office : " + data.worldwide_gross_income;
         let synopsis = document.querySelector("#synopsis");
         synopsis.innerHTML = "Synopsis : " + data.description;
     }else {
@@ -211,7 +211,7 @@ let getDataMovie = async function(dataMovie, numberMovie){
 //
 class Carousel {
   constructor (element, options = {}) {
-    this.element = element
+    this.element = element;
     this.options = Object.assign({}, {
       // elements number to do scroll
       slidesToScroll: 1,
@@ -220,133 +220,133 @@ class Carousel {
       // boucle or not in the end of carousel
       loop: false,
       navigation: true,  
-    }, options)
-    let children = [].slice.call(element.children)
-    this.isMobile = false
-    this.currentItem = 0
-    this.moveCallbacks = []
-    this.offset = 0
+    }, options);
+    let children = [].slice.call(element.children);
+    this.isMobile = false;
+    this.currentItem = 0;
+    this.moveCallbacks = [];
+    this.offset = 0;
 
     // DOM's Modification
-    this.root = this.createDivWithClass('carousel')
-    this.container = this.createDivWithClass('carousel__container')
-    this.root.setAttribute('tabindex', '0')
-    this.root.appendChild(this.container)
-    this.element.appendChild(this.root)
+    this.root = this.createDivWithClass('carousel');
+    this.container = this.createDivWithClass('carousel__container');
+    this.root.setAttribute('tabindex', '0');
+    this.root.appendChild(this.container);
+    this.element.appendChild(this.root);
     this.items = children.map((child) => {
-      let item = this.createDivWithClass('carousel__item')
-      item.appendChild(child)
-      return item
+      let item = this.createDivWithClass('carousel__item');
+      item.appendChild(child);
+      return item;
     })
-    this.items.forEach(item => this.container.appendChild(item))
-    this.setStyle()
+    this.items.forEach(item => this.container.appendChild(item));
+    this.setStyle();
     if (this.options.navigation) {
-      this.createNavigation()
+      this.createNavigation();
     }
 
     // Evenements
-    this.moveCallbacks.forEach(cb => cb(this.currentItem))
-    this.onWindowResize()
-    window.addEventListener('resize', this.onWindowResize.bind(this))
+    this.moveCallbacks.forEach(cb => cb(this.currentItem));
+    this.onWindowResize();
+    window.addEventListener('resize', this.onWindowResize.bind(this));
     this.root.addEventListener('keyup', e => {
       //Right and Left, also pb with Internet Explorer with arrows.
       if (e.key === 'ArrowRight' || e.key === 'Right') {
-        this.next()
+        this.next();
       } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
-        this.prev()
+        this.prev();
       }
     })
   }
   
   //give the good dimensions to carousel's elements   
   setStyle () {
-    let ratio = this.items.length / this.slidesVisible
-    this.container.style.width = (ratio * 100) + "%"
-    this.items.forEach(item => item.style.width = ((100 / this.slidesVisible) / ratio) + "%")
+    let ratio = this.items.length / this.slidesVisible;
+    this.container.style.width = (ratio * 100) + "%";
+    this.items.forEach(item => item.style.width = ((100 / this.slidesVisible) / ratio) + "%");
   }
   
   // Create arrows for navigation in the DOM  
   createNavigation () {
-    let nextButton = this.createDivWithClass('carousel__next')
-    let prevButton = this.createDivWithClass('carousel__prev')
-    this.root.appendChild(nextButton)
-    this.root.appendChild(prevButton)
-    nextButton.addEventListener('click', this.next.bind(this))
-    prevButton.addEventListener('click', this.prev.bind(this))
+    let nextButton = this.createDivWithClass('carousel__next');
+    let prevButton = this.createDivWithClass('carousel__prev');
+    this.root.appendChild(nextButton);
+    this.root.appendChild(prevButton);
+    nextButton.addEventListener('click', this.next.bind(this));
+    prevButton.addEventListener('click', this.prev.bind(this));
     if (this.options.loop === true) {
-      return
+      return;
     }
     this.onMove(index => {
       if (index === 0) {
-        prevButton.classList.add('carousel__prev--hidden')
+        prevButton.classList.add('carousel__prev--hidden');
       } else {
-        prevButton.classList.remove('carousel__prev--hidden')
+        prevButton.classList.remove('carousel__prev--hidden');
       }
       if (this.items[this.currentItem + this.slidesVisible] === undefined) {
-        nextButton.classList.add('carousel__next--hidden')
+        nextButton.classList.add('carousel__next--hidden');
       } else {
-        nextButton.classList.remove('carousel__next--hidden')
+        nextButton.classList.remove('carousel__next--hidden');
       }
     })
   }
   
   next () {
-    this.gotoItem(this.currentItem + this.slidesToScroll)
+    this.gotoItem(this.currentItem + this.slidesToScroll);
   }
 
   prev () {
-    this.gotoItem(this.currentItem - this.slidesToScroll)
+    this.gotoItem(this.currentItem - this.slidesToScroll);
   }
 
   //Move carousel to target element
   gotoItem (index, animation = true) {
     if (index < 0) {
       if (this.options.loop) {
-        index = this.items.length - this.slidesVisible
+        index = this.items.length - this.slidesVisible;
       } else {
-        return
+        return;
       }
     } else if (index >= this.items.length || (this.items[this.currentItem + this.slidesVisible] === undefined && index > this.currentItem)) {
       if (this.options.loop) {
-        index = 0
+        index = 0;
       } else {
-        return
+        return;
       }
     }
-    let translateX = index * -100 / this.items.length
+    let translateX = index * -100 / this.items.length;
     if (animation === false) {
-      this.container.style.transition = 'none'
+      this.container.style.transition = 'none';
     }
-    this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)'
+    this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)';
     // force repaint
-    this.container.offsetHeight 
+    this.container.offsetHeight; 
     if (animation === false) {
-      this.container.style.transition = ''
+      this.container.style.transition = '';
     }
-    this.currentItem = index
-    this.moveCallbacks.forEach(cb => cb(index))
+    this.currentItem = index;
+    this.moveCallbacks.forEach(cb => cb(index));
   }
 
   //add a listener for listen le move of carousel
   onMove (cb) {
-    this.moveCallbacks.push(cb)
+    this.moveCallbacks.push(cb);
   }
 
   //Listener for resize window
   onWindowResize () {
-    let mobile = window.innerWidth < 620
+    let mobile = window.innerWidth < 620;
     if (mobile !== this.isMobile) {
-      this.isMobile = mobile
-      this.setStyle()
-      this.moveCallbacks.forEach(cb => cb(this.currentItem))
+      this.isMobile = mobile;
+      this.setStyle();
+      this.moveCallbacks.forEach(cb => cb(this.currentItem));
     }
   }
 
   //Helper for create div with a class
   createDivWithClass (className) {
-    let div = document.createElement('div')
-    div.setAttribute('class', className)
-    return div
+    let div = document.createElement('div');
+    div.setAttribute('class', className);
+    return div;
   }
 
   //returns number
@@ -356,7 +356,7 @@ class Carousel {
 
   //returns number
   get slidesVisible () {
-    return this.isMobile ? 1 : this.options.slidesVisible
+    return this.isMobile ? 1 : this.options.slidesVisible;
   }
 }
 
@@ -388,7 +388,7 @@ let onReady = function () {
 }
 
 if (document.readyState !== 'loading') {
-  onReady()
+  onReady();
 }
 //it launches when html is loaded, witheout wait css or images loaded.
-document.addEventListener('DOMContentLoaded', onReady)
+document.addEventListener('DOMContentLoaded', onReady);
