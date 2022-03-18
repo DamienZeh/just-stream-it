@@ -1,3 +1,4 @@
+//variables urls
 let urlBestMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`;
 let urlBestAnimationMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation`;
 let urlBestActionMovies = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action`;
@@ -19,24 +20,30 @@ let categoriesButton = document.querySelector("#categoriesButton");
 //hide all the categories that we did not choose, + modal window & button "categories"
 let categoryChoice = function (category, supONe, supTwo, supThree){
   category.onclick = function() {
-    bestMovieWindow.style.display = "none";//window best movie
+    //window best movie
+    bestMovieWindow.style.display = "none";
     supONe.style.display = "none";
     supTwo.style.display = "none";
     supThree.style.display = "none";
-    categoriesButton.style.display = "none";//categories button menu
+    //categories button menu
+    categoriesButton.style.display = "none";
+    /*we display the best movies(carousel1), from the first to the seventh,
+    when it displays alone */
+    getImageMovie(urlBestMovies,'#carousel1', 0, 1);
+    allMoviesCategory(urlBestMovies, "#carousel1", 0);
   }
 }
 
-categoryChoice(bestMoviesSelect, carouselAction, carouselAdventure, carouselAnime,);
-categoryChoice(actionSelect, carouselBest, carouselAdventure, carouselAnime,);
-categoryChoice(adventureSelect, carouselAction, carouselBest, carouselAnime,);
-categoryChoice(animationSelect, carouselAction, carouselAdventure, carouselBest,);
+categoryChoice(bestMoviesSelect, carouselAction, carouselAdventure, carouselAnime);
+categoryChoice(actionSelect, carouselBest, carouselAdventure, carouselAnime);
+categoryChoice(adventureSelect, carouselAction, carouselBest, carouselAnime);
+categoryChoice(animationSelect, carouselAction, carouselAdventure, carouselBest);
 
 // info: no film
 let playButton = document.getElementById("playButton");
 playButton.onclick= play;
 function play(){
-  alert("Pas de vidéo en stock.")
+  alert("Pas de vidéo en stock.");
 }
 
 // Get data for the best movie
@@ -46,13 +53,13 @@ let getBestMovie = async function(url) {
     if (response.ok) {
       let data = await response.json();
       let movie =data.results;
-      let responseSecond = await fetch(movie[0].url);      
-      if (responseSecond.ok) {          
+      let responseSecond = await fetch(movie[0].url);
+      if (responseSecond.ok) {
           let dataDetail = await responseSecond.json();
-          console.log(dataDetail.image_url)          
-          let img = document.querySelector(`#imgBest`)  ;        
-          img.src = dataDetail.image_url; 
-          let titleMovie = document.querySelector('#bestTitle') ;
+          console.log(dataDetail.image_url);
+          let img = document.querySelector(`#imgBest`);
+          img.src = dataDetail.image_url;
+          let titleMovie = document.querySelector('#bestTitle');
           titleMovie.innerHTML ="Titre : " + dataDetail.title;
           let synopsis = document.querySelector("#bestDescription");
           synopsis.innerHTML = "Synopsis : " + dataDetail.description;
@@ -60,20 +67,19 @@ let getBestMovie = async function(url) {
       }else {
         console.error('Retour du serveur : ', response.status);
       }
-    }
-    else {
+    }else {
       console.error('Retour du serveur : ', response.status);
     }
-  }        
+  }
   catch (e) {
     console.log(e);
-  }    
-} 
+  }
+}
 
 getBestMovie(urlBestMovies)
 
 //Get data's movies for the first two pages
-let getMovies = async function(url) {    
+let getMovies = async function(url) {
   try {
       var response = await fetch(url);
       if (response.ok) {
@@ -90,38 +96,37 @@ let getMovies = async function(url) {
           else {
             console.error('Retour du serveur : ', response.status);
           }
-      }
-      else {
+      }else {
         console.error('Retour du serveur : ', response.status);
       }
-    }        
+    }
   catch (e) {
     console.log(e);
-  }    
-} 
+  }
+}
 
 //get image_url from data movie
-let getImageMovie = async function (url, nameCarousel, numberMovie, numberImage) { 
-   let moviesData = await getMovies(url); 
-   let indexMovie = 1;    
-   while (indexMovie !=8){  
+let getImageMovie = async function (url, nameCarousel, numberMovie, numberImage) {
+   let moviesData = await getMovies(url);
+   let indexMovie = 1;
+   while (indexMovie !=8){
     let carousel = document.querySelector(nameCarousel);
-    let img = carousel.querySelector(`.img${numberImage}`)  ;        
-    img.src = moviesData[numberMovie].image_url; 
+    let img = carousel.querySelector(`.img${numberImage}`);
+    img.src = moviesData[numberMovie].image_url;
     indexMovie++;
     numberMovie++;
-    numberImage+=1;    
-  }    
-} 
-
-getImageMovie(urlBestMovies,'#carousel1', 0, 1);
+    numberImage+=1;
+  }
+}
+//we display the best movies(carousel1), from the second to the eighth in main page.
+getImageMovie(urlBestMovies,'#carousel1', 1, 1);
 getImageMovie(urlBestAnimationMovies,'#carousel2', 0, 1);
 getImageMovie(urlBestActionMovies,'#carousel3', 0, 1);
 getImageMovie(urlBestAdventureMovies,'#carousel4', 0, 1);
-          
+
 
 //modal window for all movie data
-let modalBox = async function (url,nameCarousel, nameButton, numberMovie) { 
+let modalBox = async function (url,nameCarousel, nameButton, numberMovie) {
   let moviesData = await getMovies(url);
   let carousel = document.querySelector(nameCarousel);
   let modal = document.getElementById("myModal");
@@ -140,25 +145,25 @@ let modalBox = async function (url,nameCarousel, nameButton, numberMovie) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  }  
+  }
 }
 
 //launch modal window for all movies in all categories
-modalBox(urlBestMovies, '#bestFilm', '#infoButton',0 );
-let allMoviesCategory = async function(url, nomCarousel){  
-  modalBox(url,nomCarousel, '.myBtn1', 0)
-  modalBox(url,nomCarousel, '.myBtn2', 1)
-  modalBox(url,nomCarousel, '.myBtn3', 2)
-  modalBox(url,nomCarousel, '.myBtn4', 3)
-  modalBox(url,nomCarousel, '.myBtn5', 4)
-  modalBox(url,nomCarousel, '.myBtn6', 5)
-  modalBox(url,nomCarousel, '.myBtn7', 6)
+modalBox(urlBestMovies, '#bestFilm', '#infoButton', 0);
+let allMoviesCategory = async function(url, nomCarousel, positionMovie){
+  modalBox(url,nomCarousel, '.myBtn1', positionMovie);
+  modalBox(url,nomCarousel, '.myBtn2', positionMovie+1);
+  modalBox(url,nomCarousel, '.myBtn3', positionMovie+2);
+  modalBox(url,nomCarousel, '.myBtn4', positionMovie+3);
+  modalBox(url,nomCarousel, '.myBtn5', positionMovie+4);
+  modalBox(url,nomCarousel, '.myBtn6', positionMovie+5);
+  modalBox(url,nomCarousel, '.myBtn7', positionMovie+6);
 }
 
-allMoviesCategory(urlBestMovies, "#carousel1");
-allMoviesCategory(urlBestAnimationMovies, "#carousel2");
-allMoviesCategory(urlBestActionMovies, "#carousel3");
-allMoviesCategory(urlBestAdventureMovies, "#carousel4");
+allMoviesCategory(urlBestMovies, "#carousel1", 1);
+allMoviesCategory(urlBestAnimationMovies, "#carousel2", 0);
+allMoviesCategory(urlBestActionMovies, "#carousel3", 0);
+allMoviesCategory(urlBestAdventureMovies, "#carousel4", 0);
 
 
 //get all infos in a film
@@ -168,9 +173,9 @@ let getDataMovie = async function(dataMovie, numberMovie){
     // get in url details.
     if (response.ok) {
         let data = await response.json();
-        let img = document.querySelector(`.imgBox`)  ;        
-        img.src = data.image_url; 
-        let titleMovie = document.querySelector('#titleMovie') ;
+        let img = document.querySelector(`.imgBox`);
+        img.src = data.image_url;
+        let titleMovie = document.querySelector('#titleMovie');
         titleMovie.innerHTML ="Titre : " + data.title;
         let genre = document.querySelector("#genre");
         genre.innerHTML="Genre : " + data.genres;
@@ -197,8 +202,8 @@ let getDataMovie = async function(dataMovie, numberMovie){
     }
   }catch (e) {
     console.log(e);
-  }    
-} 
+  }
+}
 
 
 //
@@ -210,16 +215,12 @@ class Carousel {
     this.options = Object.assign({}, {
       // elements number to do scroll
       slidesToScroll: 1,
-      // elements number visible in a slide 
-      slidesVisible: 1, 
+      // elements number visible in a slide
+      slidesVisible: 1,
       // boucle or not in the end of carousel
-      loop: false,  
-      navigation: true,
-      infinite: false //infinite or not
+      loop: false,
+      navigation: true,  
     }, options)
-    if (this.options.loop && this.options.infinite) {
-      throw new Error('Un carousel ne peut être à la fois en boucle et en infinie')
-    }
     let children = [].slice.call(element.children)
     this.isMobile = false
     this.currentItem = 0
@@ -237,18 +238,6 @@ class Carousel {
       item.appendChild(child)
       return item
     })
-    if (this.options.infinite) {
-      this.offset = this.options.slidesVisible + this.options.slidesToScroll
-      if (this.offset > children.length) {
-        console.error("Vous n'avez pas assez d'élément dans le carousel", element)
-      }
-      this.items = [
-        ...this.items.slice(this.items.length - this.offset).map(item => item.cloneNode(true)),
-        ...this.items,
-        ...this.items.slice(0, this.offset).map(item => item.cloneNode(true)),
-      ]
-      this.gotoItem(this.offset, false)
-    }
     this.items.forEach(item => this.container.appendChild(item))
     this.setStyle()
     if (this.options.navigation) {
@@ -260,29 +249,23 @@ class Carousel {
     this.onWindowResize()
     window.addEventListener('resize', this.onWindowResize.bind(this))
     this.root.addEventListener('keyup', e => {
+      //Right and Left, also pb with Internet Explorer with arrows.
       if (e.key === 'ArrowRight' || e.key === 'Right') {
         this.next()
       } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
         this.prev()
       }
     })
-    if (this.options.infinite) {
-      this.container.addEventListener('transitionend', this.resetInfinite.bind(this))
-    }
   }
-
-  /**
-   * give the good dimensions to carousel's elements
-   */
+  
+  //give the good dimensions to carousel's elements   
   setStyle () {
     let ratio = this.items.length / this.slidesVisible
     this.container.style.width = (ratio * 100) + "%"
     this.items.forEach(item => item.style.width = ((100 / this.slidesVisible) / ratio) + "%")
   }
-
-  /**
-   * Create arrows for navigation in the DOM
-   */
+  
+  // Create arrows for navigation in the DOM  
   createNavigation () {
     let nextButton = this.createDivWithClass('carousel__next')
     let prevButton = this.createDivWithClass('carousel__prev')
@@ -305,11 +288,8 @@ class Carousel {
         nextButton.classList.remove('carousel__next--hidden')
       }
     })
-  }  
-
-  /**
-   *
-   */
+  }
+  
   next () {
     this.gotoItem(this.currentItem + this.slidesToScroll)
   }
@@ -318,8 +298,7 @@ class Carousel {
     this.gotoItem(this.currentItem - this.slidesToScroll)
   }
 
-  
-   //Move carousel to target element
+  //Move carousel to target element
   gotoItem (index, animation = true) {
     if (index < 0) {
       if (this.options.loop) {
@@ -339,7 +318,8 @@ class Carousel {
       this.container.style.transition = 'none'
     }
     this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)'
-    this.container.offsetHeight // force repaint
+    // force repaint
+    this.container.offsetHeight 
     if (animation === false) {
       this.container.style.transition = ''
     }
@@ -347,22 +327,10 @@ class Carousel {
     this.moveCallbacks.forEach(cb => cb(index))
   }
 
-  
-  //Move the container for give impression of infinite slide
-  resetInfinite () {
-    if (this.currentItem <= this.options.slidesToScroll) {
-      this.gotoItem(this.currentItem + (this.items.length - 2 * this.offset), false)
-    } else if (this.currentItem >= this.items.length - this.offset) {
-      this.gotoItem(this.currentItem - (this.items.length - 2 * this.offset), false)
-    }
-  }
-
-
   //add a listener for listen le move of carousel
   onMove (cb) {
     this.moveCallbacks.push(cb)
   }
-
 
   //Listener for resize window
   onWindowResize () {
@@ -374,7 +342,6 @@ class Carousel {
     }
   }
 
-
   //Helper for create div with a class
   createDivWithClass (className) {
     let div = document.createElement('div')
@@ -382,12 +349,10 @@ class Carousel {
     return div
   }
 
-
   //returns number
   get slidesToScroll () {
     return this.isMobile ? 1 : this.options.slidesToScroll
   }
-
 
   //returns number
   get slidesVisible () {
@@ -425,5 +390,5 @@ let onReady = function () {
 if (document.readyState !== 'loading') {
   onReady()
 }
-document.addEventListener('DOMContentLoaded', onReady)
 //it launches when html is loaded, witheout wait css or images loaded.
+document.addEventListener('DOMContentLoaded', onReady)
